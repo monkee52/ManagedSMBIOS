@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LaptopProvisioning {
+namespace ManagedSMBIOS {
     [StructLayout(LayoutKind.Sequential)]
     internal struct RawSMBIOSData {
         public byte UsedCallingMethod;
@@ -59,19 +59,19 @@ namespace LaptopProvisioning {
                 }
 
                 // Provide basic information
-                RawSMBIOSData smbiosInfo = Marshal.PtrToStructure<RawSMBIOSData>(pSmbios);
+                RawSMBIOSData smbiosInfo = (RawSMBIOSData)Marshal.PtrToStructure(pSmbios, typeof(RawSMBIOSData));
 
                 SMBIOS.MajorVersion = smbiosInfo.MajorVersion;
                 SMBIOS.MinorVersion = smbiosInfo.MinorVersion;
 
                 // Decode tables
-                IntPtr smbios = pSmbios + Marshal.SizeOf<RawSMBIOSData>();
-                int headerSize = Marshal.SizeOf<SMBIOSTableHeader>();
+                IntPtr smbios = pSmbios + Marshal.SizeOf(typeof(RawSMBIOSData));
+                int headerSize = Marshal.SizeOf(typeof(SMBIOSTableHeader));
                 int length = smbiosInfo.Length;
                 int offset = 0;
 
                 while (offset < length) {
-                    SMBIOSTableHeader header = Marshal.PtrToStructure<SMBIOSTableHeader>(smbios + offset);
+                    SMBIOSTableHeader header = (SMBIOSTableHeader)Marshal.PtrToStructure(smbios + offset, typeof(SMBIOSTableHeader));
                     IList<string> stringTable = new List<string>();
 
                     // Copy table data

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LaptopProvisioning {
+namespace ManagedSMBIOS {
     public class SMBIOS_BIOSInformation : ISMBIOSTable {
         public int Type { get; private set; }
         public UInt16 Handle { get; private set; }

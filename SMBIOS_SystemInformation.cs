@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LaptopProvisioning {
+namespace ManagedSMBIOS {
     public enum SMBIOSWakeUpType {
         Reserved,
         Other,
